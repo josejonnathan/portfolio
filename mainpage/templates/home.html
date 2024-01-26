@@ -1,0 +1,43 @@
+{% extends "home_base.html" %} {% load static %} {% block content %}
+
+<div class="container text-dark">
+  <div class="row justify-content-center">
+    <div class="col-8 md-6 sm-6">
+      <p class="fw-lighter">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Sed libero enim sed
+        faucibus turpis. Ac turpis egestas sed tempus. Congue quisque egestas
+        diam in. Semper feugiat nibh sed pulvinar proin gravida. Egestas integer
+        eget aliquet nibh. Porta lorem mollis aliquam ut porttitor. Pretium quam
+        vulputate dignissim suspendisse in est ante. Cras adipiscing enim eu
+        turpis. Aliquam sem et tortor consequat id porta nibh. Elit scelerisque
+        mauris pellentesque pulvinar pellentesque habitant morbi tristique.
+      </p>
+    </div>
+  </div>
+  <div class="row justify-content-around">
+    {% for project in projects %}
+    <div class="col-md-6 sm-12 p-5">
+      <div>
+        <a href="{{project.url}}"
+          ><img
+            class="img-fluid rounded-3"
+            src="{{project.image.url}}"
+            alt="{{project.title}}"
+        /></a>
+      </div>
+    </div>
+
+    <div class="col md-6 sm-12 p-5">
+      <div>
+        <a href="{{project.url}}" class="text-decoration-none text-dark">
+          <h3>{{project.title}}</h3>
+        </a>
+        <p class="fw-lighter">{{project.details}}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

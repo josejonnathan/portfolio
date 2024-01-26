@@ -1,69 +1,119 @@
-{% extends 'layout.html' %} {% block content %}
-<div class="col-md-4 offset-md-4">
-  <form
-    action="{% url 'password' %}"
-    method="get"
-    class="card card-body p-5"
-    style="background-color: #121212"
-  >
-    <h3>Password Generator</h3>
-    <br />
-    <label for="length">Select the length for your password </label>
-    <h6>betwen 1 - 100 characters:</h6>
-    <input
-      type="number"
-      name="length"
-      id="lenght"
-      min="1"
-      max="100"
-      value="10"
-      class="from-control"
-    />
-    <br />
-    <h6>Select the characters to include</h6>
-    <div class="form-check form-switch my-2">
-      <label for="uppercase" class="from-check-label">Uppercase</label>
-      <input
-        type="checkbox"
-        name="uppercase"
-        id="uppercase"
-        class="form-check-input"
-        checked
-      />
-    </div>
-    <div class="form-check form-switch my-2">
-      <label for="special" class="from-check-label">Special Characters</label>
-      <input
-        type="checkbox"
-        name="special"
-        id="special"
-        class="form-check-input"
-        checked
-      />
-    </div>
-    <div class="form-check form-switch my-2">
-      <label for="numbers" class="from-check-label">Numbers</label>
-      <input
-        type="checkbox"
-        name="numbers"
-        id="numbers"
-        class="form-check-input"
-        checked
-      />
-    </div>
-    <br />
+{% extends 'layout.html' %}
+<!-- django block content starts here -->
+{% block content %}
+<div class="container-lg-12 p-5 text-light">
+  <div class="row">
+    <div class="col-md-6 d-flex justify-content-center">
+      <!-- First Column -->
+      <div>
+        <form
+          action="{% url 'password' %}"
+          method="get"
+          class="card card-body"
+          style="background-color: #121212; width: 100%"
+        >
+          <h3>Password Generator</h3>
+          <br />
+          <label for="length">Select the length for your password </label>
+          <h6>betwen 1 - 100 characters:</h6>
+          <!-- number of characters case -->
+          <input
+            type="number"
+            name="length"
+            id="lenght"
+            min="1"
+            max="100"
+            value="10"
+            class="from-control"
+          />
+          <br />
+          <!-- Selectors for charachters -->
+          <h6>Select the characters to include</h6>
+          <div class="form-check form-switch my-2">
+            <label for="uppercase" class="from-check-label">Uppercase</label>
+            <input
+              type="checkbox"
+              name="uppercase"
+              id="uppercase"
+              class="form-check-input"
+              checked
+            />
+          </div>
+          <div class="form-check form-switch my-2">
+            <label for="special" class="from-check-label"
+              >Special Characters</label
+            >
+            <input
+              type="checkbox"
+              name="special"
+              id="special"
+              class="form-check-input"
+              checked
+            />
+          </div>
+          <div class="form-check form-switch my-2">
+            <label for="numbers" class="from-check-label">Numbers</label>
+            <input
+              type="checkbox"
+              name="numbers"
+              id="numbers"
+              class="form-check-input"
+              checked
+            />
+          </div>
+          <br />
+          <!-- buttons -->
+          <button type="submit" class="btn btn-primary">Generate</button>
+          <br />
+          <a href="/pass_generator" class="btn btn-primary">Reset</a>
+        </form>
 
-    <button type="submit" class="btn btn-primary">Generate</button>
-    <br />
-    <a href="/pass_generator" class="btn btn-primary">Reset</a>
-  </form>
+        <!-- password container -->
+        {% if password %}
+        <div
+          class="card card-body p-5 text-center"
+          style="background-color: #ffffff"
+        >
+          <h4 style="color: #121212">Your Password:</h4>
+          <p style="color: #121212" id="passwordValue">{{ password }}</p>
+          <button class="btn btn-primary" onclick="copyCodeToClipboard()">
+            Copy
+          </button>
+        </div>
+        {% endif %}
+      </div>
 
-  {% if password %}
-  <div class="card card-body p-5 text-center" style="background-color: #ffffff">
-    <h4 style="color: #121212">Your Password:</h4>
-    <p style="color: #121212">{{ password }}</p>
+      <!-- Copy button script -->
+      <script>
+        function copyCodeToClipboard() {
+          var textToCopy = document.getElementById("passwordValue").innerText;
+          var dummyTextArea = document.createElement("textarea");
+          document.body.appendChild(dummyTextArea);
+          dummyTextArea.value = textToCopy;
+          dummyTextArea.select();
+          document.execCommand("copy");
+          document.body.removeChild(dummyTextArea);
+        }
+      </script>
+    </div>
+
+    <div
+      class="col-md-6 d-flex justify-content-center"
+      style="padding-top: 20px; padding-left: 50px; padding-right: 50px"
+    >
+      <!-- Second Column -->
+      <div>
+        <h3>Password Generator with Django and Bootstrap</h3>
+        <br />
+        <p style="text-align: justify">
+          I developed a password generator that combines the power of Python and
+          the Django web framework with the stylish styling of Bootstrap and a
+          small script in JavaScript. This project represents my first foray
+          into web development using Django.
+        </p>
+      </div>
+    </div>
   </div>
-  {% endif %}
 </div>
-
+<!-- Form of the generator -->
 {% endblock %}

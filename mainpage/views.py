@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from .models import Project
 # Create your views here.
 
 
 def home_page(request):
-    return HttpResponse("Hi Jonnathan G. Here")
+    projects = Project.objects.all()
+    return render(request, 'home.html', {'projects': projects})

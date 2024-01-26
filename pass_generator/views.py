@@ -5,38 +5,25 @@ from pass_generator.pass_generator import PassGenerator
 
 
 def home_pass(request):
+    'this function render the first view of the generator, whitout the password block'
     return render(request, "pass_generator.html")
 
 
-# def pass_generator(request):
-#     char_list = list('abcdefghijklmnopqrstuvxyz')
-#     generated_password = ''
-#     lenght = int(request.GET.get('length'))
-#     upper = request.GET.get('uppercase')
-#     special = request.GET.get('special')
-#     numbers = request.GET.get('numbers')
-
-#     if upper:
-#         char_list.extend(list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
-
-#     if special:
-#         char_list.extend(list('_-?[]?$%&#@'))
-
-#     if numbers:
-#         char_list.extend(list('123456789'))
-
-#     for x in range(lenght):
-#         generated_password += random.choice(char_list)
-
-#     return render(request, 'pass_generator.html', {'password': generated_password})
-    # return render(request, 'pass_generator.html')
-
 def pass_generator(request):
-    lenght = int(request.GET.get('length'))
-    upper = request.GET.get('uppercase')
-    special = request.GET.get('special')
-    numbers = request.GET.get('numbers')
+    'here the variables are obtained from the response, call the generator and render the result'
+    lenght = int(request.GET.get('length', 10))
+    upper = request.GET.get('uppercase', False)
+    special = request.GET.get('special', False)
+    numbers = request.GET.get('numbers', False)
+
     password = PassGenerator()
     generated_password = password.pass_generator(
         lenght, upper, special, numbers)
-    return render(request, 'pass_generator.html', {'password': generated_password})
+
+    context = {
+        'length': int(lenght),
+        'uppercase': upper,
+        'special': special,
+        'numbers': numbers,
+        'password': generated_password}
+    return render(request, 'pass_generator.html', context)

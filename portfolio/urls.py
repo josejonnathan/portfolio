@@ -18,11 +18,17 @@ from django.contrib import admin
 from django.urls import path
 from mainpage.views import home_page
 from pass_generator.views import pass_generator, home_pass
+from audio_profile.views import audio_profile
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page, name='home'),
     path('pass_generator', home_pass, name='pass_generator'),
-    path('generate', pass_generator, name='password')
+    path('generate', pass_generator, name='password'),
+    path('audio_portfolio', audio_profile, name='audio_portfolio'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
